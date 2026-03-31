@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Afiliados — Gol Match BR</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --verde: #00c48c;
+      --verde-escuro: #00956a;
+      --fundo: #080f0a;
+      --fundo2: #0d1a10;
+      --card: #111d14;
+      --borda: rgba(0,196,140,0.15);
+      --texto: #e8f0ea;
+      --texto2: #7a9a80;
+      --destaque: #00ffb3;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--fundo);
+      color: var(--texto);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(8,15,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--borda);
+    }
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      color: var(--verde);
+      letter-spacing: 2px;
+    }
+    .logo span { color: var(--texto); }
+    nav a {
+      color: var(--texto2);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--verde); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(0,196,140,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,196,140,0.1);
+      border: 1px solid rgba(0,196,140,0.3);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: var(--verde);
+      margin-bottom: 32px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--verde);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 10vw, 100px);
+      line-height: 0.95;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      animation: fadeUp 0.6s ease 0.1s both;
+    }
+    .hero h1 span { color: var(--verde); }
+
+    .comissao-destaque {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 18vw, 180px);
+      color: var(--verde);
+      line-height: 1;
+      letter-spacing: -2px;
+      animation: fadeUp 0.6s ease 0.2s both;
+      text-shadow: 0 0 80px rgba(0,196,140,0.3);
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--texto2);
+      max-width: 520px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+      animation: fadeUp 0.6s ease 0.3s both;
+    }
+
+    .btn-principal {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--verde);
+      color: #050e07;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 18px 40px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.2s;
+      animation: fadeUp 0.6s ease 0.4s both;
+    }
+    .btn-principal:hover {
+      background: var(--destaque);
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(0,196,140,0.3);
+    }
+    .btn-principal svg { width: 18px; height: 18px; }
+
+    /* ── NUMEROS ── */
+    .numeros {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--borda);
+      border: 1px solid var(--borda);
+      border-radius: 20px;
+      overflow: hidden;
+      max-width: 800px;
+      margin: 80px auto;
+    }
+    .numero-item {
+      background: var(--fundo2);
+      padding: 40px 32px;
+      text-align: center;
+    }
+    .numero-item .valor {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      color: var(--verde);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .numero-item .label {
+      font-size: 14px;
+      color: var(--texto2);
+    }
+
+    /* ── COMO FUNCIONA ── */
+    section { padding: 80px 24px; max-width: 900px; margin: 0 auto; }
+
+    .section-tag {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--verde);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 1;
+      margin-bottom: 48px;
+    }
+
+    .passos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .passo {
+      background: var(--card);
+      border: 1px solid var(--borda);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .passo:hover {
+      border-color: rgba(0,196,140,0.4);
+      transform: translateY(-4px);
+    }
+    .passo-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px;
+      color: rgba(0,196,140,0.15);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .passo h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--texto);
+    }
+    .passo p {
+      font-size: 14px;
+      color: var(--texto2);
+      line-height: 1.6;
+    }
+
+    /* ── POR QUE VENDER ── */
+    .motivos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .motivo {
+      background: var(--card);
+      border: 1px solid var(--borda);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .motivo:hover { border-color: rgba(0,196,140,0.35); }
+    .motivo-icon {
+      width: 40px; height: 40px;
+      background: rgba(0,196,140,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+    .motivo-text h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .motivo-text p {
+      font-size: 13px;
+      color: var(--texto2);
+      line-height: 1.5;
+    }
+
+    /* ── CALCULADORA ── */
+    .calculadora {
+      background: var(--card);
+      border: 1px solid var(--borda);
+      border-radius: 24px;
+      padding: 48px;
+      margin-top: 40px;
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .calc-label {
+      font-size: 13px;
+      color: var(--texto2);
+      margin-bottom: 12px;
+    }
+    .calc-slider {
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      background: rgba(0,196,140,0.2);
+      border-radius: 2px;
+      outline: none;
+      margin-bottom: 8px;
+    }
+    .calc-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--verde);
+      cursor: pointer;
+    }
+    .calc-valor {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      color: var(--verde);
+    }
+    .calc-resultado {
+      text-align: center;
+    }
+    .calc-resultado .ganho {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 72px;
+      color: var(--verde);
+      line-height: 1;
+      text-shadow: 0 0 40px rgba(0,196,140,0.4);
+    }
+    .calc-resultado .ganho-label {
+      font-size: 14px;
+      color: var(--texto2);
+      margin-top: 8px;
+    }
+
+    /* ── CTA FINAL ── */
+    .cta-final {
+      text-align: center;
+      padding: 100px 24px;
+      position: relative;
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,196,140,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-final h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(42px, 8vw, 80px);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .cta-final h2 span { color: var(--verde); }
+    .cta-final p {
+      color: var(--texto2);
+      font-size: 16px;
+      max-width: 440px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--borda);
+      padding: 32px 40px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--texto2);
+    }
+    footer a { color: var(--verde); text-decoration: none; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--borda);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .numeros { grid-template-columns: 1fr; }
+      .calc-grid { grid-template-columns: 1fr; }
+      .calculadora { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Gol Match <span>BR</span></div>
+    <a href="https://golmatchbr.com.br" target="_blank">Ver produto →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">Programa de Afiliados</div>
+    <h1>Ganhe <span>dinheiro</span><br>com futebol</h1>
+    <div class="comissao-destaque">65%</div>
+    <p class="hero-sub">
+      Divulgue o Gol Match BR e ganhe <strong>R$17,55 por assinante</strong> que você trouxer. Recorrente todo mês enquanto ele continuar ativo.
+    </p>
+    <a href="https://dashboard.kiwify.com/join/affiliate/ElwLsQtd" class="btn-principal" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Quero ser afiliado agora
+    </a>
+  </section>
+
+  <!-- NÚMEROS -->
+  <div class="numeros" style="position:relative;z-index:1;padding: 0 24px;max-width:860px;margin:0 auto 80px;">
+    <div class="numero-item">
+      <div class="valor">R$17</div>
+      <div class="label">por assinante por mês</div>
+    </div>
+    <div class="numero-item">
+      <div class="valor">65%</div>
+      <div class="label">de comissão por venda</div>
+    </div>
+    <div class="numero-item">
+      <div class="valor">∞</div>
+      <div class="label">sem limite de ganhos</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- COMO FUNCIONA -->
+  <section>
+    <div class="section-tag">Simples assim</div>
+    <div class="section-title">Como funciona</div>
+    <div class="passos">
+      <div class="passo">
+        <div class="passo-num">01</div>
+        <h3>Cadastre-se grátis</h3>
+        <p>Clique no botão e crie sua conta de afiliado na Kiwify em menos de 2 minutos.</p>
+      </div>
+      <div class="passo">
+        <div class="passo-num">02</div>
+        <h3>Divulgue seu link</h3>
+        <p>Compartilhe no Instagram, grupos de futebol, WhatsApp, Telegram — onde quiser.</p>
+      </div>
+      <div class="passo">
+        <div class="passo-num">03</div>
+        <h3>Receba toda venda</h3>
+        <p>Cada assinante que entrar pelo seu link gera R$17,55 pra você, todo mês.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- POR QUE VENDER -->
+  <section>
+    <div class="section-tag">Vantagens</div>
+    <div class="section-title">Por que vender<br>Gol Match BR</div>
+    <div class="motivos">
+      <div class="motivo">
+        <div class="motivo-icon">⚽</div>
+        <div class="motivo-text">
+          <h4>Nicho com demanda enorme</h4>
+          <p>Milhões de brasileiros acompanham futebol e buscam análises confiáveis todo dia.</p>
+        </div>
+      </div>
+      <div class="motivo">
+        <div class="motivo-icon">🤖</div>
+        <div class="motivo-text">
+          <h4>Produto que se vende sozinho</h4>
+          <p>Sistema automatizado, entrega real de valor todo dia. Fácil de recomendar.</p>
+        </div>
+      </div>
+      <div class="motivo">
+        <div class="motivo-icon">💰</div>
+        <div class="motivo-text">
+          <h4>Comissão recorrente</h4>
+          <p>Você recebe todo mês enquanto o assinante continuar ativo. Uma venda, vários pagamentos.</p>
+        </div>
+      </div>
+      <div class="motivo">
+        <div class="motivo-icon">📊</div>
+        <div class="motivo-text">
+          <h4>Dashboard completo</h4>
+          <p>Acompanhe seus cliques, vendas e ganhos em tempo real pelo painel da Kiwify.</p>
+        </div>
+      </div>
+      <div class="motivo">
+        <div class="motivo-icon">⚡</div>
+        <div class="motivo-text">
+          <h4>Pagamento rápido</h4>
+          <p>Receba direto na sua conta via PIX, sem burocracia.</p>
+        </div>
+      </div>
+      <div class="motivo">
+        <div class="motivo-icon">🎯</div>
+        <div class="motivo-text">
+          <h4>Material de apoio</h4>
+          <p>Prints de resultados reais, imagens prontas para divulgar — só copiar e postar.</p>
+        </div>
+      </div>
+      <div class="motivo">
+        <div class="motivo-icon">🍪</div>
+        <div class="motivo-text">
+          <h4>Cookie de 60 dias</h4>
+          <p>Se alguém clicar no seu link hoje e assinar em até 60 dias, a comissão é sua. Atribuição por último clique.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CALCULADORA -->
+  <section>
+    <div class="section-tag">Simule seus ganhos</div>
+    <div class="section-title">Quanto você<br>pode ganhar</div>
+    <div class="calculadora">
+      <div class="calc-grid">
+        <div>
+          <div class="calc-label">Assinantes indicados por mês</div>
+          <input type="range" class="calc-slider" id="slider" min="1" max="100" value="10" oninput="calcular()">
+          <div class="calc-valor" id="num-assinantes">10 assinantes</div>
+          <br><br>
+          <div style="background:rgba(0,196,140,0.05);border:1px solid var(--borda);border-radius:12px;padding:20px;font-size:13px;color:var(--texto2);line-height:1.7;">
+            <strong style="color:var(--texto)">Como calcular:</strong><br>
+            R$27 × 65% = <strong style="color:var(--verde)">R$17,55</strong> por assinante<br>
+            Comissão paga mensalmente enquanto o assinante estiver ativo.
+          </div>
+        </div>
+        <div class="calc-resultado">
+          <div class="ganho" id="ganho-total">R$175</div>
+          <div class="ganho-label">por mês de comissão</div>
+          <div style="margin-top:24px;font-size:13px;color:var(--texto2);">
+            No ano: <strong style="color:var(--verde)" id="ganho-ano">R$2.106</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <div class="cta-final">
+    <h2>Comece a ganhar<br><span>ainda hoje</span></h2>
+    <p>Cadastro gratuito, sem mensalidade. Você só ganha quando vende.</p>
+    <a href="https://dashboard.kiwify.com/join/affiliate/ElwLsQtd" class="btn-principal" target="_blank" style="font-size:18px;padding:20px 48px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Quero ser afiliado
+    </a>
+  </div>
+
+  <footer>
+    <p>© 2026 Gol Match BR · <a href="https://golmatchbr.com.br">golmatchbr.com.br</a> · Análise estatística de futebol</p>
+  </footer>
+
+  <script>
+    function calcular() {
+      const n = parseInt(document.getElementById('slider').value)
+      const mensal = Math.round(n * 17.55)
+      const anual = mensal * 12
+      document.getElementById('num-assinantes').textContent = n + (n === 1 ? ' assinante' : ' assinantes')
+      document.getElementById('ganho-total').textContent = 'R$' + mensal.toLocaleString('pt-BR')
+      document.getElementById('ganho-ano').textContent = 'R$' + anual.toLocaleString('pt-BR')
+    }
+    calcular()
+  </script>
+
+</body>
+</html>
