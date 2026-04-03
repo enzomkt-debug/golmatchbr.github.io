@@ -1030,6 +1030,55 @@
       if (!isOpen) item.classList.add('open')
     }
 
+
+    const NOMES_TIMES = {
+      'CR Flamengo': 'Flamengo', 'SE Palmeiras': 'Palmeiras', 'SC Corinthians Paulista': 'Corinthians',
+      'Clube Atletico Mineiro': 'Atletico Mineiro', 'Clube Atlético Mineiro': 'Atletico Mineiro',
+      'Fluminense FC': 'Fluminense', 'Botafogo FR': 'Botafogo', 'SC Internacional': 'Internacional',
+      'Sao Paulo FC': 'Sao Paulo', 'São Paulo FC': 'Sao Paulo', 'Gremio FBPA': 'Gremio', 'Grêmio FBPA': 'Gremio',
+      'Club de Regatas Vasco da Gama': 'Vasco da Gama', 'EC Bahia': 'Bahia', 'Fortaleza EC': 'Fortaleza',
+      'CA Paranaense': 'Athletico Paranaense', 'Athletico Paranaense': 'Athletico Paranaense',
+      'Cruzeiro EC': 'Cruzeiro', 'EC Vitoria': 'Vitoria', 'EC Vitória': 'Vitoria',
+      'Juventude': 'Juventude', 'RB Bragantino': 'RB Bragantino', 'Mirassol FC': 'Mirassol',
+      'Ceara SC': 'Ceara', 'Sport Club do Recife': 'Sport Recife',
+      'America FC': 'America Mineiro', 'Goias EC': 'Goias', 'Cuiaba EC': 'Cuiaba',
+      'Atletico Goianiense': 'Atletico Goianiense', 'Criciuma EC': 'Criciuma', 'Coritiba FC': 'Coritiba',
+      'AA Ponte Preta': 'Ponte Preta', 'Botafogo FC': 'Botafogo SP', 'Operario FC': 'Operario Ferroviario',
+      'Paysandu SC': 'Paysandu', 'Avai FC': 'Avai', 'Amazonas FC': 'Amazonas',
+      'Vila Nova FC': 'Vila Nova', 'Chapecoense AF': 'Chapecoense', 'Londrina EC': 'Londrina',
+      'Clube do Remo': 'Remo', 'Santos FC': 'Santos', 'CA Mineiro': 'Atletico Mineiro',
+      'Manchester City FC': 'Manchester City', 'Arsenal FC': 'Arsenal', 'Liverpool FC': 'Liverpool',
+      'Chelsea FC': 'Chelsea', 'Manchester United FC': 'Manchester United',
+      'Tottenham Hotspur FC': 'Tottenham', 'Newcastle United FC': 'Newcastle', 'Aston Villa FC': 'Aston Villa',
+      'Real Madrid CF': 'Real Madrid', 'FC Barcelona': 'Barcelona',
+      'Club Atletico de Madrid': 'Atletico Madrid', 'Club Atlético de Madrid': 'Atletico Madrid',
+      'Sevilla FC': 'Sevilla', 'Valencia CF': 'Valencia', 'Villarreal CF': 'Villarreal',
+      'FC Bayern Munchen': 'Bayern Munich', 'FC Bayern München': 'Bayern Munich',
+      'RasenBallsport Leipzig': 'RB Leipzig', 'Bayer 04 Leverkusen': 'Bayer Leverkusen',
+      'Juventus FC': 'Juventus', 'FC Internazionale Milano': 'Inter Milan',
+      'AC Milan': 'AC Milan', 'AS Roma': 'Roma', 'SSC Napoli': 'Napoli', 'SS Lazio': 'Lazio',
+      'Paris Saint-Germain FC': 'PSG', 'AS Monaco FC': 'Monaco',
+      'Olympique de Marseille': 'Marseille', 'Olympique Lyonnais': 'Lyon', 'LOSC Lille': 'Lille',
+      'FC Porto': 'Porto', 'Sport Lisboa e Benfica': 'Benfica',
+      'AFC Ajax': 'Ajax', 'Club Atletico River Plate': 'River Plate', 'Club Atlético River Plate': 'River Plate',
+      'Club Atletico Boca Juniors': 'Boca Juniors', 'Club Atlético Boca Juniors': 'Boca Juniors',
+      'SE Palmeiras': 'Palmeiras', 'Gremio FBPA': 'Gremio',
+    }
+
+    function normalizarTime(nome) {
+      if (!nome) return nome
+      return NOMES_TIMES[nome] || nome
+    }
+
+    function normalizarJogoWidget(jogo) {
+      if (!jogo) return jogo
+      const partes = jogo.split(' x ')
+      if (partes.length === 2) {
+        return normalizarTime(partes[0].trim()) + ' x ' + normalizarTime(partes[1].trim())
+      }
+      return jogo
+    }
+
     // MAPA DE LOGOS — 88 times
     const LOGOS_WIDGET = {
       'Flamengo': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/flamengo.png',
@@ -1173,7 +1222,8 @@
           const tr  = document.createElement('tr')
           const tdData = document.createElement('td'); tdData.textContent = fmtData(a.data_jogo); tdData.style.cssText = 'color:var(--texto2);font-size:13px'
           const tdJogo = document.createElement('td')
-          const partesJogo = a.jogo ? a.jogo.split(' x ') : []
+          const jogoNorm = normalizarJogoWidget(a.jogo)
+          const partesJogo = jogoNorm ? jogoNorm.split(' x ') : []
           const nCasa = partesJogo[0] ? partesJogo[0].trim() : ''
           const nFora = partesJogo[1] ? partesJogo[1].trim() : ''
           const eCasa = escudoHtml(nCasa, 20)
