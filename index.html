@@ -1030,314 +1030,6 @@
       if (!isOpen) item.classList.add('open')
     }
 
-
-    const NOMES_TIMES = {
-      'CR Flamengo': 'Flamengo', 'SE Palmeiras': 'Palmeiras', 'SC Corinthians Paulista': 'Corinthians',
-      'Clube Atletico Mineiro': 'Atletico Mineiro', 'Clube Atlético Mineiro': 'Atletico Mineiro',
-      'Fluminense FC': 'Fluminense', 'Botafogo FR': 'Botafogo', 'SC Internacional': 'Internacional',
-      'Sao Paulo FC': 'Sao Paulo', 'São Paulo FC': 'Sao Paulo', 'Gremio FBPA': 'Gremio', 'Grêmio FBPA': 'Gremio',
-      'Club de Regatas Vasco da Gama': 'Vasco da Gama', 'EC Bahia': 'Bahia', 'Fortaleza EC': 'Fortaleza',
-      'CA Paranaense': 'Athletico Paranaense', 'Athletico Paranaense': 'Athletico Paranaense',
-      'Cruzeiro EC': 'Cruzeiro', 'EC Vitoria': 'Vitoria', 'EC Vitória': 'Vitoria',
-      'RB Bragantino': 'RB Bragantino', 'Mirassol FC': 'Mirassol', 'Ceara SC': 'Ceara',
-      'Sport Club do Recife': 'Sport Recife', 'Santos FC': 'Santos', 'Clube do Remo': 'Remo',
-      'CA Mineiro': 'Atletico Mineiro', 'Chapecoense AF': 'Chapecoense',
-      'America FC': 'America Mineiro', 'Goias EC': 'Goias', 'Cuiaba EC': 'Cuiaba',
-      'Criciuma EC': 'Criciuma', 'Coritiba FC': 'Coritiba', 'AA Ponte Preta': 'Ponte Preta',
-      'Botafogo FC': 'Botafogo SP', 'Operario FC': 'Operario Ferroviario',
-      'Paysandu SC': 'Paysandu', 'Avai FC': 'Avai', 'Amazonas FC': 'Amazonas',
-      'Vila Nova FC': 'Vila Nova', 'Londrina EC': 'Londrina',
-      'Manchester City FC': 'Manchester City', 'Arsenal FC': 'Arsenal', 'Liverpool FC': 'Liverpool',
-      'Chelsea FC': 'Chelsea', 'Manchester United FC': 'Manchester United',
-      'Tottenham Hotspur FC': 'Tottenham', 'Newcastle United FC': 'Newcastle', 'Aston Villa FC': 'Aston Villa',
-      'Real Madrid CF': 'Real Madrid', 'FC Barcelona': 'Barcelona',
-      'Club Atletico de Madrid': 'Atletico Madrid', 'Club Atlético de Madrid': 'Atletico Madrid',
-      'Sevilla FC': 'Sevilla', 'Valencia CF': 'Valencia', 'Villarreal CF': 'Villarreal',
-      'Rayo Vallecano de Madrid': 'Rayo Vallecano', 'Elche CF': 'Elche',
-      'FC Bayern Munchen': 'Bayern Munich', 'FC Bayern München': 'Bayern Munich',
-      'RasenBallsport Leipzig': 'RB Leipzig', 'Bayer 04 Leverkusen': 'Bayer Leverkusen',
-      'Juventus FC': 'Juventus', 'FC Internazionale Milano': 'Inter Milan',
-      'AS Roma': 'Roma', 'SSC Napoli': 'Napoli', 'SS Lazio': 'Lazio',
-      'Paris Saint-Germain FC': 'PSG', 'AS Monaco FC': 'Monaco',
-      'Olympique de Marseille': 'Marseille', 'Olympique Lyonnais': 'Lyon', 'LOSC Lille': 'Lille',
-      'FC Porto': 'Porto', 'Sport Lisboa e Benfica': 'Benfica',
-      'AFC Ajax': 'Ajax', 'Club Atletico River Plate': 'River Plate', 'Club Atlético River Plate': 'River Plate',
-      'Club Atletico Boca Juniors': 'Boca Juniors', 'Club Atlético Boca Juniors': 'Boca Juniors',
-      'Charlton Athletic FC': 'Charlton Athletic', 'Bristol City FC': 'Bristol City',
-      'Leicester City': 'Leicester City', 'Birmingham City': 'Birmingham City',
-    }
-
-    function normalizarTime(nome) {
-      return NOMES_TIMES[nome] || nome
-    }
-
-    function normalizarJogoWidget(jogo) {
-      if (!jogo) return jogo
-      const partes = jogo.split(' x ')
-      if (partes.length === 2) return normalizarTime(partes[0].trim()) + ' x ' + normalizarTime(partes[1].trim())
-      return jogo
-    }
-
-    const LOGOS_WIDGET = {
-      'Flamengo': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/flamengo.png',
-      'Palmeiras': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/palmeiras.png',
-      'Corinthians': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/corinthians.png',
-      'Atletico Mineiro': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/atletico-mineiro.png',
-      'Fluminense': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/fluminense.png',
-      'Botafogo': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/botafogo.png',
-      'Internacional': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/internacional.png',
-      'Sao Paulo': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sao-paulo.png',
-      'Gremio': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/gremio.png',
-      'Vasco da Gama': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/vasco-da-gama.png',
-      'Bahia': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/bahia.png',
-      'Fortaleza': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/fortaleza.png',
-      'Athletico Paranaense': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/athletico-paranaense.png',
-      'Cruzeiro': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/cruzeiro.png',
-      'Vitoria': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/vitoria.png',
-      'Juventude': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/juventude.png',
-      'RB Bragantino': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/rb-bragantino.png',
-      'Mirassol': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/mirassol.png',
-      'Ceara': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/ceara.png',
-      'Sport Recife': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sport-recife.png',
-      'Santos': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/santos.png',
-      'Remo': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/remo.png',
-      'America Mineiro': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/america-mineiro.png',
-      'Goias': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/goias.png',
-      'Cuiaba': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/cuiaba.png',
-      'Atletico Goianiense': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/atletico-goianiense.png',
-      'Criciuma': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/criciuma.png',
-      'Coritiba': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/coritiba.png',
-      'Ponte Preta': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/ponte-preta.png',
-      'Botafogo SP': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/botafogo-sp.png',
-      'Operario Ferroviario': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/operario-ferroviario.png',
-      'Paysandu': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/paysandu.png',
-      'CRB': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/crb.png',
-      'Avai': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/avai.png',
-      'Amazonas': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/amazonas.png',
-      'Vila Nova': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/vila-nova.png',
-      'Novorizontino': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/novorizontino.png',
-      'Chapecoense': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/chapecoense.png',
-      'Londrina': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/londrina.png',
-      'Nautico': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/nautico.png',
-      'Guarani': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/guarani.png',
-      'Sao Bernardo': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sao-bernardo.png',
-      'Arsenal': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/arsenal.png',
-      'Aston Villa': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/aston-villa.png',
-      'Bournemouth': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/bournemouth.png',
-      'Brentford': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/brentford.png',
-      'Brighton': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/brighton.png',
-      'Chelsea': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/chelsea.png',
-      'Crystal Palace': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/crystal-palace.png',
-      'Everton': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/everton.png',
-      'Fulham': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/fulham.png',
-      'Ipswich': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/ipswich.png',
-      'Liverpool': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/liverpool.png',
-      'Manchester City': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/manchester-city.png',
-      'Manchester United': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/manchester-united.png',
-      'Newcastle': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/newcastle.png',
-      'Nottingham Forest': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/nottingham-forest.png',
-      'Southampton': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/southampton.png',
-      'Tottenham': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/tottenham.png',
-      'West Ham': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/west-ham.png',
-      'Wolves': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/wolves.png',
-      'Blackburn Rovers': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/blackburn-rovers.png',
-      'Bristol City': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/bristol-city.png',
-      'Burnley': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/burnley.png',
-      'Coventry City': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/coventry-city.png',
-      'Derby County': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/derby-county.png',
-      'Hull City': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/hull-city.png',
-      'Leeds United': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/leeds-united.png',
-      'Middlesbrough': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/middlesbrough.png',
-      'Millwall': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/millwall.png',
-      'Norwich City': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/norwich-city.png',
-      'Oxford United': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/oxford-united.png',
-      'Portsmouth': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/portsmouth.png',
-      'Preston North End': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/preston-north-end.png',
-      'Sheffield United': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sheffield-united.png',
-      'Sheffield Wednesday': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sheffield-wednesday.png',
-      'Stoke City': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/stoke-city.png',
-      'Sunderland': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sunderland.png',
-      'Swansea City': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/swansea-city.png',
-      'Watford': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/watford.png',
-      'Wrexham': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/wrexham.png',
-      'Real Madrid': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/real-madrid.png',
-      'Barcelona': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/barcelona.png',
-      'Atletico Madrid': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/atletico-madrid.png',
-      'Athletic Club': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/athletic-club.png',
-      'Real Betis': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/real-betis.png',
-      'Real Sociedad': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/real-sociedad.png',
-      'Sevilla': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sevilla.png',
-      'Valencia': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/valencia.png',
-      'Villarreal': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/villarreal.png',
-      'Osasuna': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/osasuna.png',
-      'Getafe': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/getafe.png',
-      'Girona': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/girona.png',
-      'Mallorca': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/mallorca.png',
-      'Rayo Vallecano': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/rayo-vallecano.png',
-      'Espanyol': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/espanyol.png',
-      'Elche': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/elche.png',
-      'Levante': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/levante.png',
-      'Deportivo': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/deportivo.png',
-      'Oviedo': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/oviedo.png',
-      'Bayern Munich': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/bayern-munich.png',
-      'Borussia Dortmund': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/borussia-dortmund.png',
-      'RB Leipzig': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/rb-leipzig.png',
-      'Bayer Leverkusen': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/bayer-leverkusen.png',
-      'Eintracht Frankfurt': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/eintracht-frankfurt.png',
-      'Borussia Monchengladbach': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/borussia-monchengladbach.png',
-      'Wolfsburg': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/wolfsburg.png',
-      'Hoffenheim': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/hoffenheim.png',
-      'Freiburg': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/freiburg.png',
-      'Werder Bremen': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/werder-bremen.png',
-      'Union Berlin': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/union-berlin.png',
-      'Augsburg': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/augsburg.png',
-      'Koln': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/koln.png',
-      'St Pauli': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/st-pauli.png',
-      'Juventus': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/juventus.png',
-      'Inter Milan': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/inter-milan.png',
-      'AC Milan': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/ac-milan.png',
-      'Roma': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/roma.png',
-      'Napoli': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/napoli.png',
-      'Lazio': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/lazio.png',
-      'Atalanta': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/atalanta.png',
-      'Fiorentina': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/fiorentina.png',
-      'Torino': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/torino.png',
-      'Udinese': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/udinese.png',
-      'Bologna': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/bologna.png',
-      'Genoa': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/genoa.png',
-      'Verona': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/verona.png',
-      'Cagliari': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/cagliari.png',
-      'Lecce': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/lecce.png',
-      'Parma': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/parma.png',
-      'Sassuolo': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sassuolo.png',
-      'Cremonese': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/cremonese.png',
-      'Pisa': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/pisa.png',
-      'PSG': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/psg.png',
-      'Monaco': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/monaco.png',
-      'Marseille': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/marseille.png',
-      'Lyon': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/lyon.png',
-      'Lille': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/lille.png',
-      'Rennes': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/rennes.png',
-      'Nice': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/nice.png',
-      'Nantes': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/nantes.png',
-      'Toulouse': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/toulouse.png',
-      'Brest': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/brest.png',
-      'Auxerre': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/auxerre.png',
-      'Angers': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/angers.png',
-      'Lorient': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/lorient.png',
-      'Paris FC': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/paris-fc.png',
-      'Porto': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/porto.png',
-      'Benfica': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/benfica.png',
-      'Sporting CP': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sporting-cp.png',
-      'Rio Ave': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/rio-ave.png',
-      'Famalicao': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/famalicao.png',
-      'Gil Vicente': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/gil-vicente.png',
-      'Santa Clara': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/santa-clara.png',
-      'Estoril': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/estoril.png',
-      'Moreirense': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/moreirense.png',
-      'Arouca': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/arouca.png',
-      'Alverca': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/alverca.png',
-      'Tondela': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/tondela.png',
-      'Ajax': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/ajax.png',
-      'PSV': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/psv.png',
-      'Feyenoord': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/feyenoord.png',
-      'AZ Alkmaar': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/az-alkmaar.png',
-      'Twente': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/twente.png',
-      'Sparta Rotterdam': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sparta-rotterdam.png',
-      'NAC Breda': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/nac-breda.png',
-      'Go Ahead Eagles': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/go-ahead-eagles.png',
-      'PEC Zwolle': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/pec-zwolle.png',
-      'Fortuna Sittard': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/fortuna-sittard.png',
-      'Volendam': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/volendam.png',
-      'Telstar': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/telstar.png',
-      'River Plate': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/river-plate.png',
-      'Boca Juniors': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/boca-juniors.png',
-      'Racing Club': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/racing-club.png',
-      'Independiente': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/independiente.png',
-      'Rosario Central': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/rosario-central.png',
-      'Talleres': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/talleres.png',
-      'Lanus': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/lanus.png',
-      'Belgrano': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/belgrano.png',
-      'Godoy Cruz': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/godoy-cruz.png',
-      'Defensa y Justicia': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/defensa-y-justicia.png',
-      'Atletico Tucuman': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/atletico-tucuman.png',
-      'Banfield': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/banfield.png',
-      'Tigre': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/tigre.png',
-      'Platense': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/platense.png',
-      'Sarmiento': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sarmiento.png',
-      'Penarol': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/penarol.png',
-      'Nacional': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/nacional.png',
-      'Defensor Sporting': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/defensor-sporting.png',
-      'Danubio': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/danubio.png',
-      'Montevideo City Torque': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/montevideo-city-torque.png',
-      'Boston River': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/boston-river.png',
-      'Cerro': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/cerro.png',
-      'Cerro Largo': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/cerro-largo.png',
-      'Colo Colo': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/colo-colo.png',
-      'Universidad de Chile': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/universidad-de-chile.png',
-      'Universidad Catolica': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/universidad-catolica.png',
-      'Audax Italiano': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/audax-italiano.png',
-      'Cobresal': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/cobresal.png',
-      'Huachipato': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/huachipato.png',
-      'Nublense': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/nublense.png',
-      'Palestino': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/palestino.png',
-      'Union Espanola': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/union-espanola.png',
-      'Union La Calera': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/union-la-calera.png',
-      'OHiggins': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/ohiggins.png',
-      'Coquimbo Unido': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/coquimbo-unido.png',
-      'Universitario': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/universitario.png',
-      'Alianza Lima': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/alianza-lima.png',
-      'Sporting Cristal': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sporting-cristal.png',
-      'Melgar': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/melgar.png',
-      'Sport Huancayo': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sport-huancayo.png',
-      'Atletico Grau': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/atletico-grau.png',
-      'Independiente del Valle': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/independiente-del-valle.png',
-      'Barcelona SC': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/barcelona-sc.png',
-      'Emelec': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/emelec.png',
-      'Aucas': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/aucas.png',
-      'El Nacional': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/el-nacional.png',
-      'Delfin': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/delfin.png',
-      'Macara': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/macara.png',
-      'Deportivo Cuenca': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/deportivo-cuenca.png',
-      'Tecnico Universitario': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/tecnico-universitario.png',
-      'Olimpia': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/olimpia.png',
-      'Cerro Porteno': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/cerro-porteno.png',
-      'Libertad': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/libertad.png',
-      'Sportivo Luqueno': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/sportivo-luqueno.png',
-      'Atletico Nacional': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/atletico-nacional.png',
-      'Independiente Medellin': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/independiente-medellin.png',
-      'America de Cali': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/america-de-cali.png',
-      'Deportes Tolima': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/deportes-tolima.png',
-      'Deportivo Cali': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/deportivo-cali.png',
-      'Millonarios': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/millonarios.png',
-      'Once Caldas': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/once-caldas.png',
-      'Deportivo Pereira': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/deportivo-pereira.png',
-      'Bolivar': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/bolivar.png',
-      'The Strongest': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/the-strongest.png',
-      'Always Ready': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/always-ready.png',
-      'Blooming': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/blooming.png',
-      'Oriente Petrolero': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/oriente-petrolero.png',
-      'Aurora': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/aurora.png',
-      'Guabira': 'https://raw.githubusercontent.com/enzomkt-debug/futebol-agent/main/assets/logos/guabira.png'
-    }
-
-    function buscarLogoWidget(nome) {
-      if (!nome) return null
-      if (LOGOS_WIDGET[nome]) return LOGOS_WIDGET[nome]
-      const nl = nome.toLowerCase()
-      const chave = Object.keys(LOGOS_WIDGET).find(k => {
-        const kl = k.toLowerCase()
-        return kl.includes(nl) || nl.includes(kl)
-      })
-      return chave ? LOGOS_WIDGET[chave] : null
-    }
-
-    function escudoHtml(nome, size) {
-      const url = buscarLogoWidget(nome)
-      if (!url) return ''
-      return '<img src="' + url + '" style="width:' + size + 'px;height:' + size + 'px;object-fit:contain;vertical-align:middle;margin-right:4px;border-radius:2px" onerror="this.style.display=\'none\'">'
-    }
-
     // HISTÓRICO DE ANÁLISES
     ;(async function() {
       const SUPABASE_URL = 'https://oqncliufhmxdhhywaine.supabase.co'
@@ -1361,31 +1053,26 @@
         if (!apostas || !apostas.length || apostas.error) { empty.style.display = 'block'; return }
         const vistos = {}
         const unicas = apostas.filter(a => { const k = a.jogo+a.data_jogo; if(vistos[k]) return false; vistos[k]=true; return true })
-        const comRes  = unicas.filter(a => a.resultados && a.resultados.length > 0)
-        const acertos = comRes.filter(a => a.resultados[0].acertou).length
+        const comRes  = unicas.filter(a => a.resultados && a.resultados.length > 0 && a.resultados[0].acertou !== null)
+        const acertos = comRes.filter(a => a.resultados[0].acertou === true).length
         elTaxa.textContent  = comRes.length ? Math.round(acertos/comRes.length*100) + '%' : '—'
         elTotal.textContent = comRes.length || '—'
-        const semRes  = unicas.filter(a => !a.resultados || !a.resultados.length)
+        const semRes  = unicas.filter(a => !a.resultados || !a.resultados.length || a.resultados[0].acertou === null)
         const ordenados = comRes.concat(semRes)
         ordenados.forEach(a => {
           const res = a.resultados && a.resultados.length ? a.resultados[0] : null
           const ok  = res ? res.acertou : null
           const tr  = document.createElement('tr')
           const tdData = document.createElement('td'); tdData.textContent = fmtData(a.data_jogo); tdData.style.cssText = 'color:var(--texto2);font-size:13px'
-          const tdJogo = document.createElement('td')
-          const jogoNorm = normalizarJogoWidget(a.jogo)
-          const partesJogo = jogoNorm ? jogoNorm.split(' x ') : []
-          const nCasa = partesJogo[0] ? partesJogo[0].trim() : ''
-          const nFora = partesJogo[1] ? partesJogo[1].trim() : ''
-          const eCasa = escudoHtml(nCasa, 20)
-          const eFora = escudoHtml(nFora, 20)
-          tdJogo.innerHTML = '<div class="hist-jogo">' + eCasa + nCasa + ' x ' + eFora + nFora + '</div><div class="hist-liga">' + a.liga + '</div>'
+          const tdJogo = document.createElement('td'); tdJogo.innerHTML = '<div class="hist-jogo">' + a.jogo + '</div><div class="hist-liga">' + a.liga + '</div>'
           const tdMerc = document.createElement('td'); tdMerc.textContent = a.mercado; tdMerc.style.cssText = 'color:var(--texto2);font-size:13px'
           const tdPlacar = document.createElement('td')
-          if (res) { tdPlacar.innerHTML = '<span class="hist-placar ' + (ok?'':'errou') + '">' + res.gols_casa + ' x ' + res.gols_fora + '</span>' }
+          if (res && ok !== null) { tdPlacar.innerHTML = '<span class="hist-placar ' + (ok?'':'errou') + '">' + res.gols_casa + ' x ' + res.gols_fora + '</span>' }
+          else if (res && ok === null) { tdPlacar.innerHTML = '<span class="hist-placar pendente">' + res.gols_casa + ' x ' + res.gols_fora + '</span>' }
           else { tdPlacar.innerHTML = '<span class="hist-placar pendente">—</span>' }
           const tdRes = document.createElement('td')
-          if (res) { tdRes.innerHTML = '<span class="hist-badge ' + (ok?'acertou':'errou') + '">' + (ok?'✓ Acertou':'✗ Errou') + '</span>' }
+          if (ok === true) { tdRes.innerHTML = '<span class="hist-badge acertou">✓ Acertou</span>' }
+          else if (ok === false) { tdRes.innerHTML = '<span class="hist-badge errou">✗ Errou</span>' }
           else { tdRes.innerHTML = '<span class="hist-badge pendente">Pendente</span>' }
           tr.appendChild(tdData); tr.appendChild(tdJogo); tr.appendChild(tdMerc); tr.appendChild(tdPlacar); tr.appendChild(tdRes)
           tbody.appendChild(tr)
@@ -1396,6 +1083,195 @@
         document.getElementById('hist-empty').style.display = 'block'
       }
     })()
+  </script>
+
+  <!-- ── MODAL CUPOM ── -->
+  <style>
+    #cupom-modal {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      background: linear-gradient(135deg, #0d1a10 0%, #111d14 100%);
+      border: 1px solid rgba(0,196,140,0.35);
+      border-radius: 20px;
+      padding: 24px 24px 20px;
+      width: 300px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,196,140,0.1);
+      animation: cupom-slide-in 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+
+    #cupom-modal.hidden {
+      display: none;
+    }
+
+    @keyframes cupom-slide-in {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to   { opacity: 1; transform: translateY(0)   scale(1);    }
+    }
+
+    #cupom-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      background: none;
+      border: none;
+      color: #7a9a80;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    #cupom-close:hover { color: #fff; }
+
+    .cupom-badge {
+      display: inline-block;
+      background: rgba(0,196,140,0.12);
+      color: #00c48c;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(0,196,140,0.25);
+      margin-bottom: 10px;
+    }
+
+    .cupom-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .cupom-title span {
+      color: #00c48c;
+    }
+
+    .cupom-sub {
+      font-size: 13px;
+      color: #7a9a80;
+      margin-bottom: 16px;
+      font-weight: 300;
+    }
+
+    .cupom-code-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,196,140,0.07);
+      border: 1.5px dashed rgba(0,196,140,0.4);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+    }
+
+    .cupom-code {
+      flex: 1;
+      font-family: 'Bebas Neue', monospace;
+      font-size: 24px;
+      letter-spacing: 0.12em;
+      color: #00c48c;
+    }
+
+    #cupom-copy-btn {
+      background: #00c48c;
+      border: none;
+      border-radius: 8px;
+      color: #080f0a;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+    #cupom-copy-btn:hover { background: #00956a; }
+    #cupom-copy-btn:active { transform: scale(0.96); }
+    #cupom-copy-btn.copiado {
+      background: #1a3d2b;
+      color: #00c48c;
+    }
+
+    .cupom-timer-label {
+      font-size: 11px;
+      color: #7a9a80;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 6px;
+    }
+
+    .cupom-timer {
+      font-family: 'Bebas Neue', monospace;
+      font-size: 28px;
+      color: #fff;
+      letter-spacing: 0.05em;
+    }
+
+    .cupom-timer .sep { color: rgba(0,196,140,0.5); }
+    .cupom-timer .ms  { font-size: 20px; color: #7a9a80; }
+  </style>
+
+  <div id="cupom-modal">
+    <button id="cupom-close" aria-label="Fechar">✕</button>
+    <div class="cupom-badge">Oferta exclusiva</div>
+    <div class="cupom-title">35% de <span>desconto</span></div>
+    <p class="cupom-sub">Use o cupom abaixo na assinatura</p>
+    <div class="cupom-code-wrap">
+      <div class="cupom-code">GANHE35</div>
+      <button id="cupom-copy-btn">Copiar</button>
+    </div>
+    <div class="cupom-timer-label">Expira em</div>
+    <div class="cupom-timer" id="cupom-timer">
+      00<span class="sep">:</span>00<span class="sep">:</span><span class="ms">000</span>
+    </div>
+  </div>
+
+  <script>
+    // Fechar modal
+    document.getElementById('cupom-close').addEventListener('click', function() {
+      document.getElementById('cupom-modal').classList.add('hidden');
+    });
+
+    // Copiar cupom
+    document.getElementById('cupom-copy-btn').addEventListener('click', function() {
+      navigator.clipboard.writeText('GANHE35').then(function() {
+        var btn = document.getElementById('cupom-copy-btn');
+        btn.textContent = 'Copiado!';
+        btn.classList.add('copiado');
+        setTimeout(function() {
+          btn.textContent = 'Copiar';
+          btn.classList.remove('copiado');
+        }, 2000);
+      });
+    });
+
+    // Contador regressivo até meia-noite, reinicia todo dia
+    function updateCupomTimer() {
+      var now = new Date();
+      var midnight = new Date(now);
+      midnight.setHours(24, 0, 0, 0);
+      var diff = midnight - now; // ms restantes
+
+      var totalSec = Math.floor(diff / 1000);
+      var mins = Math.floor(totalSec / 60);
+      var secs = totalSec % 60;
+      var ms   = diff % 1000;
+
+      var mm = String(mins).padStart(2, '0');
+      var ss = String(secs).padStart(2, '0');
+      var mss = String(ms).padStart(3, '0');
+
+      document.getElementById('cupom-timer').innerHTML =
+        mm + '<span class="sep">:</span>' +
+        ss + '<span class="sep">:</span>' +
+        '<span class="ms">' + mss + '</span>';
+    }
+
+    updateCupomTimer();
+    setInterval(updateCupomTimer, 50);
   </script>
 </body>
 </html>
