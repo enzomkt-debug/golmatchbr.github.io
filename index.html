@@ -521,6 +521,24 @@
       background: linear-gradient(90deg, transparent, var(--verde), transparent);
     }
 
+    .hero-micro {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--texto2);
+    }
+
+    .preco-ancoragem {
+      font-size: 13px;
+      color: var(--texto2);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 8px 14px;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+    .preco-ancoragem strong { color: #fff; }
+
     .preco-valor {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 96px;
@@ -592,6 +610,48 @@
       background: var(--verde-escuro);
       transform: translateY(-2px);
       box-shadow: 0 20px 60px rgba(0,196,140,0.3);
+    }
+
+    .garantia-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(0,196,140,0.07);
+      border: 1px solid rgba(0,196,140,0.2);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 16px;
+      text-align: left;
+    }
+    .garantia-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+    .garantia-box strong { display: block; color: var(--verde); font-size: 14px; margin-bottom: 2px; }
+    .garantia-box span { font-size: 13px; color: var(--texto2); line-height: 1.4; }
+
+    /* Botão fixo mobile */
+    .btn-sticky-mobile {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      padding: 12px 20px 20px;
+      background: linear-gradient(to top, #0a0f0b 80%, transparent);
+    }
+    .btn-sticky-mobile a {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: var(--verde);
+      color: #000;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+    }
+    @media (max-width: 768px) {
+      .btn-sticky-mobile { display: block; }
     }
 
     .preco-garantia {
@@ -757,9 +817,10 @@
     <p>Inteligência artificial analisando 13 ligas de futebol todo dia. Receba a análise completa direto no seu Telegram antes dos jogos começarem.</p>
     <div class="hero-cta">
       <a href="#assinar" class="btn-primary">
-        Assinar agora
+        Entrar agora — acesso imediato ao Telegram
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
+      <p class="hero-micro">🛡️ Garantia de 7 dias · Cancele quando quiser</p>
       <span class="btn-price">Por apenas <strong>R$27/mês</strong> · Cancele quando quiser</span>
     </div>
   </section>
@@ -941,6 +1002,7 @@
         <p class="section-sub">Um único plano com acesso completo a tudo.</p>
       </div>
       <div class="preco-card reveal">
+        <div class="preco-ancoragem">Tipsters cobram R$200–R$500/mês. Aqui é R$27.</div>
         <div class="preco-valor"><sup>R$</sup>27</div>
         <div class="preco-periodo">por mês · cancele quando quiser</div>
         <ul class="preco-features">
@@ -950,7 +1012,14 @@
           <li>Histórico e taxa de acerto dos últimos 30 dias</li>
           <li>Modelo estatístico com H2H real e Poisson</li>
         </ul>
-        <a href="https://pay.kiwify.com.br/SNnNXe7" class="btn-primary-lg">Assinar agora por R$27/mês</a>
+        <a href="https://pay.kiwify.com.br/SNnNXe7" class="btn-primary-lg">Entrar agora — acesso imediato ao Telegram</a>
+        <div class="garantia-box">
+          <span class="garantia-icon">🛡️</span>
+          <div>
+            <strong>Garantia de 7 dias</strong>
+            <span>Se não ficar satisfeito, devolvemos 100% do valor. Sem perguntas.</span>
+          </div>
+        </div>
         <p class="preco-garantia">Cancele a qualquer momento · Sem fidelidade</p>
       </div>
     </div>
@@ -1273,6 +1342,21 @@
 
     updateCupomTimer();
     setInterval(updateCupomTimer, 50);
+
+    // Esconde botão fixo mobile quando seção de preço está visível
+    const precoSection = document.getElementById('assinar')
+    const stickyBtn = document.querySelector('.btn-sticky-mobile')
+    if (precoSection && stickyBtn) {
+      const stickyObs = new IntersectionObserver(function(entries) {
+        stickyBtn.style.display = entries[0].isIntersecting ? 'none' : ''
+      }, { threshold: 0.1 })
+      stickyObs.observe(precoSection)
+    }
   </script>
+
+  <!-- BOTÃO FIXO MOBILE -->
+  <div class="btn-sticky-mobile">
+    <a href="https://pay.kiwify.com.br/SNnNXe7">Assinar agora por R$27/mês →</a>
+  </div>
 </body>
 </html>
